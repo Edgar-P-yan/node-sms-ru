@@ -1,6 +1,6 @@
 {
   "name": "node-sms-ru",
-  "version": "0.0.0-development",
+  "version": "0.0.1",
   "description": "",
   "keywords": [],
   "main": "dist/node-sms-ru.umd.js",
