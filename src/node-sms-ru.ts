@@ -4,6 +4,8 @@ import { SMSRuSendSMSResponse } from './interfaces/SMSRuSendSMSResponse.interfac
 import { SMSRuSendSMSOptions } from './interfaces/SMSRuSendSMSOptions.interface'
 import { SMSRuSMSStatuses } from './interfaces/SMSRuSMSStatuses.interface'
 import { SMSRuError } from './errors/SMSRuError.error'
+import { SMSRuGetCostOptions } from './interfaces/SMSRuGetCostOptions.interface'
+import { SMSRuGetCostResponse } from './interfaces/SMSRuGetCostResponse.interface'
 
 export class SMSRu {
   private _params: SMSRuParams
@@ -25,7 +27,12 @@ export class SMSRu {
 
   /**
    * Отправить СМС сообщение
-   * @param options
+   *
+   * Если у вас есть необходимость в отправке СМС
+   * сообщения из вашей программы, то вы можете
+   * использовать этот метод.
+   *
+   * @see http://sms.ru/api/send
    */
   async sendSms(options: SMSRuSendSMSOptions): Promise<SMSRuSendSMSResponse> {
     const params = {
@@ -50,7 +57,12 @@ export class SMSRu {
 
   /**
    * Проверить статус отправленных сообщений
-   * @param smsIds
+   *
+   * Если у вас есть необходимость вручную проверить
+   * статус отправленных вами сообщений, то вы
+   * можете использовать этот метод.
+   *
+   * @see http://sms.ru/api/status
    */
   async checkSmsStatuses(smsIds: string | string[]): Promise<SMSRuSMSStatuses> {
     const smsStatuses = await this._makeApiRequest<SMSRuSMSStatuses>('sms/status', {
@@ -58,6 +70,25 @@ export class SMSRu {
     })
 
     return smsStatuses
+  }
+
+  /**
+   * Проверить стоимость сообщений перед отправкой.
+   *
+   * Если у вас есть необходимость проверить стоимость сообщения
+   * перед его отправкой из вашей программы,
+   * то вы можете использовать этот метод.
+   *
+   * @see http://sms.ru/api/cost
+   */
+  async getCost(options: SMSRuGetCostOptions): Promise<SMSRuGetCostResponse> {
+    const params = {
+      ...options,
+      to: Array.isArray(options.to) ? options.to.join(',') : options.to,
+      transit: options.transit ? 1 : options.transit === false ? 0 : undefined
+    }
+
+    return this._makeApiRequest<SMSRuGetCostResponse>('sms/cost', params)
   }
 
   private async _makeApiRequest<T = any>(path: string, params: Record<string, any>): Promise<T> {
