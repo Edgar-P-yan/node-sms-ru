@@ -7,6 +7,7 @@ import { SMSRuError } from './errors/SMSRuError.error'
 import { SMSRuGetCostOptions } from './interfaces/SMSRuGetCostOptions.interface'
 import { SMSRuGetCostResponse } from './interfaces/SMSRuGetCostResponse.interface'
 import { SMSRuGetBalanceResponse } from './interfaces/SMSRuGetBalanceResponse.interface'
+import { SMSRuGetLimitResponse } from './interfaces/SMSRuGetLimitResponse.interface'
 export { SMSRuErrorResponse } from './interfaces/SMSRuErrorResponse.interface'
 
 export class SMSRu {
@@ -104,6 +105,17 @@ export class SMSRu {
     return getBalanceResponse.balance
   }
 
+  /**
+   * Получить информацию о дневном лимите и его использовании
+   *
+   * Если вы хотите узнать какой у вас лимит на отправку
+   * сообщений и на какое количество номеров вы уже
+   * сегодня отправили сообщения, используйте этот метод.
+   */
+  async getLimit(): Promise<SMSRuGetLimitResponse> {
+    return this._makeApiRequest<SMSRuGetLimitResponse>('my/limit')
+  }
+
   private async _makeApiRequest<T = any>(path: string, params?: Record<string, any>): Promise<T> {
     const response = await axios.request<T>({
       url: path,
@@ -135,5 +147,6 @@ export {
   SMSRuSMSStatuses,
   SMSRuGetCostOptions,
   SMSRuGetCostResponse,
+  SMSRuGetLimitResponse,
   SMSRuError
 }
