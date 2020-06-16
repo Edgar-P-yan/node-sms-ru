@@ -9,6 +9,7 @@ import { SMSRuGetCostResponse } from './interfaces/SMSRuGetCostResponse.interfac
 import { SMSRuGetBalanceResponse } from './interfaces/SMSRuGetBalanceResponse.interface'
 import { SMSRuGetLimitResponse } from './interfaces/SMSRuGetLimitResponse.interface'
 import { SMSRuGetFreeResponse } from './interfaces/SMSRuGetFreeResponse.interface'
+import { SMSRuGetSendersResponse } from './interfaces/SMSRuGetSendersResponse.interface'
 export { SMSRuErrorResponse } from './interfaces/SMSRuErrorResponse.interface'
 
 export class SMSRu {
@@ -126,6 +127,18 @@ export class SMSRu {
    */
   async getFree(): Promise<SMSRuGetFreeResponse> {
     return this._makeApiRequest<SMSRuGetFreeResponse>('my/free')
+  }
+
+  /**
+   * Получение списка одобренных отправителей
+   *
+   * Если вы хотите получить список отправителей, которые
+   * были согласованы вами на сайте SMS.RU,
+   * то необходимо использовать этот метод
+   */
+  async getSenders(): Promise<string[]> {
+    const getSendersResponse = await this._makeApiRequest<SMSRuGetSendersResponse>('my/senders')
+    return getSendersResponse.senders
   }
 
   private async _makeApiRequest<T = any>(path: string, params?: Record<string, any>): Promise<T> {
