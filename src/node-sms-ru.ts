@@ -6,6 +6,8 @@ import { SMSRuSMSStatuses } from './interfaces/SMSRuSMSStatuses.interface'
 import { SMSRuError } from './errors/SMSRuError.error'
 import { SMSRuGetCostOptions } from './interfaces/SMSRuGetCostOptions.interface'
 import { SMSRuGetCostResponse } from './interfaces/SMSRuGetCostResponse.interface'
+import { SMSRuGetBalanceResponse } from './interfaces/SMSRuGetBalanceResponse.interface'
+export { SMSRuErrorResponse } from './interfaces/SMSRuErrorResponse.interface'
 
 export class SMSRu {
   private _params: SMSRuParams
@@ -91,11 +93,22 @@ export class SMSRu {
     return this._makeApiRequest<SMSRuGetCostResponse>('sms/cost', params)
   }
 
-  private async _makeApiRequest<T = any>(path: string, params: Record<string, any>): Promise<T> {
+  /**
+   * Получить информацию о балансе
+   *
+   * Если вы хотите узнать ваш текущий баланс на сайте SMS.RU,
+   * используйте этот метод.
+   */
+  async getBalance(): Promise<number> {
+    const getBalanceResponse = await this._makeApiRequest<SMSRuGetBalanceResponse>('my/balance')
+    return getBalanceResponse.balance
+  }
+
+  private async _makeApiRequest<T = any>(path: string, params?: Record<string, any>): Promise<T> {
     const response = await axios.request<T>({
       url: path,
       params: {
-        ...params,
+        ...(params || {}),
         ...this._authParams,
         json: 1
       },
@@ -114,4 +127,13 @@ export class SMSRu {
       ? { api_id: this._params.api_id }
       : { login: this._params.login, password: this._params.password }
   }
+}
+
+export {
+  SMSRuSendSMSOptions,
+  SMSRuSendSMSResponse,
+  SMSRuSMSStatuses,
+  SMSRuGetCostOptions,
+  SMSRuGetCostResponse,
+  SMSRuError
 }
