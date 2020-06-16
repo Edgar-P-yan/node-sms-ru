@@ -23,6 +23,10 @@ export class SMSRu {
     }
   }
 
+  /**
+   * Отправить СМС сообщение
+   * @param options
+   */
   async sendSms(options: SMSRuSendSMSOptions): Promise<SMSRuSendSMSResponse> {
     const params = {
       ...options,
@@ -44,6 +48,10 @@ export class SMSRu {
     return sendResponse
   }
 
+  /**
+   * Проверить статус отправленных сообщений
+   * @param smsIds
+   */
   async checkSmsStatuses(smsIds: string | string[]): Promise<SMSRuSMSStatuses> {
     const smsStatuses = await this.makeApiRequest<SMSRuSMSStatuses>('sms/status', {
       sms_id: Array.isArray(smsIds) ? smsIds.join(',') : smsIds
