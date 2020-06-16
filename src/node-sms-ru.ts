@@ -8,6 +8,7 @@ import { SMSRuGetCostOptions } from './interfaces/SMSRuGetCostOptions.interface'
 import { SMSRuGetCostResponse } from './interfaces/SMSRuGetCostResponse.interface'
 import { SMSRuGetBalanceResponse } from './interfaces/SMSRuGetBalanceResponse.interface'
 import { SMSRuGetLimitResponse } from './interfaces/SMSRuGetLimitResponse.interface'
+import { SMSRuGetFreeResponse } from './interfaces/SMSRuGetFreeResponse.interface'
 export { SMSRuErrorResponse } from './interfaces/SMSRuErrorResponse.interface'
 
 export class SMSRu {
@@ -116,6 +117,17 @@ export class SMSRu {
     return this._makeApiRequest<SMSRuGetLimitResponse>('my/limit')
   }
 
+  /**
+   * Получить информацию о бесплатных сообщениях и его
+   * использовании.
+   *
+   * Если вы хотите узнать ваш расход бесплатных
+   * сообщений на свой номер за день, используйте этот метод.
+   */
+  async getFree(): Promise<SMSRuGetFreeResponse> {
+    return this._makeApiRequest<SMSRuGetFreeResponse>('my/free')
+  }
+
   private async _makeApiRequest<T = any>(path: string, params?: Record<string, any>): Promise<T> {
     const response = await axios.request<T>({
       url: path,
@@ -148,5 +160,6 @@ export {
   SMSRuGetCostOptions,
   SMSRuGetCostResponse,
   SMSRuGetLimitResponse,
+  SMSRuGetFreeResponse,
   SMSRuError
 }
