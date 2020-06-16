@@ -1,5 +1,5 @@
 # node-sms-ru
-![sms.ru logo](assets/logo.png)
+![sms.ru logo](https://raw.githubusercontent.com/laba-do/node-sms-ru/master/assets/logo.png)
 
 node-sms-ru это библиотека для работы с API сервиса СМС рассылок [sms.ru](https://sms.ru)
 
