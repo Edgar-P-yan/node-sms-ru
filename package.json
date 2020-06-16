@@ -1,6 +1,6 @@
 {
   "name": "node-sms-ru",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "node-sms-ru это библиотека для работы с API сервиса СМС рассылок https://sms.ru",
   "keywords": ["sms", "sms.ru", "driver", "смс", "рассылки", "sdk"],
   "main": "dist/node-sms-ru.umd.js",
