@@ -141,6 +141,19 @@ export class SMSRu {
     return getSendersResponse.senders
   }
 
+  /**
+   * Проверить на валидность пару логин/пароль (или api_id).
+   *
+   * Если вы хотите проверить, является ли рабочим ваш api_id
+   * или логин и пароль, используйте этот метод.
+   *
+   * Если вам api_id или логин и пароль работают - метод ничего не вернет,
+   * иначе выбросит исключение.
+   */
+  async checkAuth(): Promise<void> {
+    await this._makeApiRequest('auth/check')
+  }
+
   private async _makeApiRequest<T = any>(path: string, params?: Record<string, any>): Promise<T> {
     const response = await axios.request<T>({
       url: path,
