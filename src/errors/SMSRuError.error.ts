@@ -12,12 +12,12 @@ export class SMSRuError extends Error {
     this.name = this.constructor.name
 
     this.response = response
-    if (this.isErrorResponse(response)) {
+    if (this._isErrorResponse(response)) {
       this.errorResponse = response
     }
   }
 
-  private isErrorResponse(response: any): response is SMSRuErrorResponse {
+  private _isErrorResponse(response: any): response is SMSRuErrorResponse {
     return (
       (response &&
         response.status &&

@@ -6,20 +6,20 @@ import { SMSRuSMSStatuses } from './interfaces/SMSRuSMSStatuses.interface'
 import { SMSRuError } from './errors/SMSRuError.error'
 
 export class SMSRu {
-  private params: SMSRuParams
+  private _params: SMSRuParams
 
   constructor(apiId: string)
   // tslint:disable-next-line unified-signatures
   constructor(login: string, password: string)
 
   constructor(apiIdOrLogin: string, password?: string) {
-    this.params = { baseUrl: 'https://sms.ru/' }
+    this._params = { baseUrl: 'https://sms.ru/' }
 
     if (arguments.length === 2) {
-      this.params.login = apiIdOrLogin
-      this.params.password = password
+      this._params.login = apiIdOrLogin
+      this._params.password = password
     } else {
-      this.params.api_id = apiIdOrLogin
+      this._params.api_id = apiIdOrLogin
     }
   }
 
@@ -43,7 +43,7 @@ export class SMSRu {
       test: options.test ? 1 : options.test === false ? 0 : undefined
     }
 
-    const sendResponse = await this.makeApiRequest<SMSRuSendSMSResponse>('sms/send', params)
+    const sendResponse = await this._makeApiRequest<SMSRuSendSMSResponse>('sms/send', params)
 
     return sendResponse
   }
@@ -53,22 +53,22 @@ export class SMSRu {
    * @param smsIds
    */
   async checkSmsStatuses(smsIds: string | string[]): Promise<SMSRuSMSStatuses> {
-    const smsStatuses = await this.makeApiRequest<SMSRuSMSStatuses>('sms/status', {
+    const smsStatuses = await this._makeApiRequest<SMSRuSMSStatuses>('sms/status', {
       sms_id: Array.isArray(smsIds) ? smsIds.join(',') : smsIds
     })
 
     return smsStatuses
   }
 
-  private async makeApiRequest<T = any>(path: string, params: Record<string, any>): Promise<T> {
+  private async _makeApiRequest<T = any>(path: string, params: Record<string, any>): Promise<T> {
     const response = await axios.request<T>({
       url: path,
       params: {
         ...params,
-        ...this.authParams,
+        ...this._authParams,
         json: 1
       },
-      baseURL: this.params.baseUrl
+      baseURL: this._params.baseUrl
     })
 
     if ((response.data as any)?.status !== 'OK') {
@@ -78,9 +78,9 @@ export class SMSRu {
     return response.data
   }
 
-  private get authParams() {
-    return this.params.api_id
-      ? { api_id: this.params.api_id }
-      : { login: this.params.login, password: this.params.password }
+  private get _authParams() {
+    return this._params.api_id
+      ? { api_id: this._params.api_id }
+      : { login: this._params.login, password: this._params.password }
   }
 }

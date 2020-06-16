@@ -32,7 +32,7 @@ describe('node-sms-ru', () => {
         ]
 
         checkList.forEach(check =>
-          assert.strictEqual(SMSRuError.prototype['isErrorResponse'](check[0]), check[1])
+          assert.strictEqual(SMSRuError.prototype['_isErrorResponse'](check[0]), check[1])
         )
       })
     })
