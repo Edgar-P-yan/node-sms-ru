@@ -3,7 +3,6 @@ import { SMSRuParams } from './interfaces/SMSRuParams.interface'
 import { SMSRuSendSMSResponse } from './interfaces/SMSRuSendSMSResponse.interface'
 import { SMSRuSendSMSOptions } from './interfaces/SMSRuSendSMSOptions.interface'
 import { SMSRuSMSStatuses } from './interfaces/SMSRuSMSStatuses.interface'
-import { SMSRuErrorResponse } from './interfaces/SMSRuErrorResponse'
 import { SMSRuError } from './errors/SMSRuError.error'
 
 export class SMSRu {

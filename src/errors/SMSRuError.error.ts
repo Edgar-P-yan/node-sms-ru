@@ -1,4 +1,4 @@
-import { SMSRuErrorResponse } from '../interfaces/SMSRuErrorResponse'
+import { SMSRuErrorResponse } from '../interfaces/SMSRuErrorResponse.interface'
 
 export class SMSRuError extends Error {
   public errorResponse?: SMSRuErrorResponse
