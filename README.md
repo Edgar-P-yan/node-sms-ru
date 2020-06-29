@@ -44,6 +44,55 @@ const statusResult = await smsRu.checkSmsStatuses(['id сообщения'])
 
 Полное описание API находится здесь: [laba-do.github.io/node-sms-ru](https://laba-do.github.io/node-sms-ru/)
 
+### Nest.js integration
+В модуль встроена интеграция с фреймворком Nest.js.
+
+```ts
+import { SMSRuModule } from 'node-sms-ru/nestjs'
+
+@Module({
+  imports: [
+    SMSRuModule.forRoot({ api_id: 'ваш api_id'})
+  ]
+})
+export class AppModule {}
+```
+
+Или через `.forRootAsync()`
+
+```ts
+import { SMSRuModule } from 'node-sms-ru/nestjs'
+
+@Module({
+  imports: [
+    SMSRuModule.forRootAsync({
+      useFactory: (config: ConfigService) => ({
+        api_id: config.get('SMS_RU_API_ID'),
+      }),
+      inject: [ConfigService],
+    }),
+  ]
+})
+export class AppModule {}
+```
+
+А после этого используем его в сервисах
+```ts
+import { SMSRu } from 'node-sms-ru'
+
+@Injectable()
+export class AppService {
+  constructor(
+    private readonly smsRu: SMSRu,
+  ) {}
+
+  async sendSMSNotification(to: string, msg: string): Promise<void> {
+    await this.smsRu.sendSms({ to, msg });
+  }
+}
+```
+
+
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
