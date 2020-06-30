@@ -1,1 +1,1 @@
-export * from './src/nestjs'
+export * from './dist/types/nestjs'
