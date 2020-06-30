@@ -1,6 +1,6 @@
 {
   "name": "node-sms-ru",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "node-sms-ru это библиотека для работы с API сервиса СМС рассылок https://sms.ru",
   "keywords": [
     "sms",
@@ -14,7 +14,7 @@
   "module": "dist/node-sms-ru.es5.js",
   "typings": "dist/types/node-sms-ru.d.ts",
   "files": [
-    "dist"
+    "dist", "nestjs.js", "nestjs.d.ts"
   ],
   "author": "Edgar <starguitar307@gmail.com>",
   "repository": {
