@@ -10,6 +10,8 @@ import { SMSRuGetBalanceResponse } from './interfaces/SMSRuGetBalanceResponse.in
 import { SMSRuGetLimitResponse } from './interfaces/SMSRuGetLimitResponse.interface'
 import { SMSRuGetFreeResponse } from './interfaces/SMSRuGetFreeResponse.interface'
 import { SMSRuGetSendersResponse } from './interfaces/SMSRuGetSendersResponse.interface'
+import { SMSRuCodeCallOptions } from './interfaces/SMSRuCodeCallOptions.interface'
+import { SMSRuCodeCallResponse } from './interfaces/SMSRuCodeCallResponse.interface'
 export { SMSRuErrorResponse } from './interfaces/SMSRuErrorResponse.interface'
 
 export class SMSRu {
@@ -58,6 +60,16 @@ export class SMSRu {
     const sendResponse = await this._makeApiRequest<SMSRuSendSMSResponse>('sms/send', params)
 
     return sendResponse
+  }
+
+  /**
+   * Отправить четырехзначный авторизационный код звонком
+   *
+   * @see https://sms.ru/api/code_call
+   */
+  async codeCall(options: SMSRuCodeCallOptions): Promise<SMSRuCodeCallResponse> {
+    const params = { phone: options.to }
+    return this._makeApiRequest<SMSRuCodeCallResponse>('code/call', params)
   }
 
   /**

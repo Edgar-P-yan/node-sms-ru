@@ -74,6 +74,19 @@ describe('node-sms-ru', () => {
         })
       })
     })
+
+    describe('#codeCall() ', () => {
+      // @ts-expect-error
+      const smsRu = new SMSRu(...authArgs)
+
+      it('works', async () => {
+        const result = await smsRu.codeCall({
+          to: TEST_PHONE_NUMBER!
+        })
+
+        assert.strictEqual(result.status, 'OK')
+      })
+    })
   })
 })
 
