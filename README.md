@@ -1,5 +1,6 @@
 # node-sms-ru
-![sms.ru logo](https://raw.githubusercontent.com/laba-do/node-sms-ru/master/assets/logo.png)
+
+![sms.ru logo](https://raw.githubusercontent.com/Edgar-P-yan/node-sms-ru/master/assets/logo.png)
 
 node-sms-ru это библиотека для работы с API сервиса СМС рассылок [sms.ru](https://sms.ru)
 
@@ -22,6 +23,7 @@ yarn add node-sms-ru
 ## Usage
 
 Сначала инициируем класс
+
 ```js
 const { SMSRu } = require('node-sms-ru')
 
@@ -29,31 +31,32 @@ const smsRu = new SMSRu('ваш api_id')
 ```
 
 Отправка СМС
+
 ```js
 const sendResult = await smsRu.sendSms({
   to: '+7 000 000 00 00',
-  msg: 'Hi',
+  msg: 'Hi'
   // ... описание всех опций можно найти в документации
 })
 ```
 
 Проверка статуса сообщений
+
 ```js
 const statusResult = await smsRu.checkSmsStatuses(['id сообщения'])
 ```
 
-Полное описание API находится здесь: [laba-do.github.io/node-sms-ru](https://laba-do.github.io/node-sms-ru/)
+Полное описание API находится здесь: [edgar-p-yan.github.io/node-sms-ru](https://edgar-p-yan.github.io/node-sms-ru/)
 
 ### Nest.js integration
+
 В модуль встроена интеграция с фреймворком Nest.js.
 
 ```ts
 import { SMSRuModule } from 'node-sms-ru/nestjs'
 
 @Module({
-  imports: [
-    SMSRuModule.forRoot({ api_id: 'ваш api_id'})
-  ]
+  imports: [SMSRuModule.forRoot({ api_id: 'ваш api_id' })]
 })
 export class AppModule {}
 ```
@@ -67,36 +70,36 @@ import { SMSRuModule } from 'node-sms-ru/nestjs'
   imports: [
     SMSRuModule.forRootAsync({
       useFactory: (config: ConfigService) => ({
-        api_id: config.get('SMS_RU_API_ID'),
+        api_id: config.get('SMS_RU_API_ID')
       }),
-      inject: [ConfigService],
-    }),
+      inject: [ConfigService]
+    })
   ]
 })
 export class AppModule {}
 ```
 
 А после этого используем его в сервисах
+
 ```ts
 import { SMSRu } from 'node-sms-ru'
 
 @Injectable()
 export class AppService {
-  constructor(
-    private readonly smsRu: SMSRu,
-  ) {}
+  constructor(private readonly smsRu: SMSRu) {}
 
   async sendSMSNotification(to: string, msg: string): Promise<void> {
-    await this.smsRu.sendSms({ to, msg });
+    await this.smsRu.sendSms({ to, msg })
   }
 }
 ```
 
-
 ## Contributing
+
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
 Please make sure to update tests as appropriate.
 
 ## License
+
 [MIT](https://choosealicense.com/licenses/mit/)

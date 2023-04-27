@@ -1,6 +1,6 @@
 {
   "name": "node-sms-ru",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "node-sms-ru это библиотека для работы с API сервиса СМС рассылок https://sms.ru",
   "keywords": [
     "sms",
@@ -14,12 +14,14 @@
   "module": "dist/node-sms-ru.es5.js",
   "typings": "dist/types/node-sms-ru.d.ts",
   "files": [
-    "dist", "nestjs.js", "nestjs.d.ts"
+    "dist",
+    "nestjs.js",
+    "nestjs.d.ts"
   ],
-  "author": "Edgar <starguitar307@gmail.com>",
+  "author": "Edgar Pogosyan <edgar.pogosyan.a@gmail.com> (https://github.com/Edgar-P-yan)",
   "repository": {
     "type": "git",
-    "url": "https://github.com/laba-do/node-sms-ru.git"
+    "url": "https://github.com/Edgar-P-Yan/node-sms-ru.git"
   },
   "license": "MIT",
   "engines": {
