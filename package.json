@@ -10,7 +10,7 @@
     "рассылки",
     "sdk"
   ],
-  "main": "dist/node-sms-ru.umd.js",
+  "main": "dist/lib/node-sms-ru.js",
   "module": "dist/node-sms-ru.es5.js",
   "typings": "dist/types/node-sms-ru.d.ts",
   "files": [

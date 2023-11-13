@@ -5,6 +5,7 @@ import camelCase from 'lodash.camelcase'
 import typescript from 'rollup-plugin-typescript2'
 import json from 'rollup-plugin-json'
 
+// @ts-ignore
 const pkg = require('./package.json')
 
 const libraryName = 'node-sms-ru'
@@ -12,7 +13,8 @@ const libraryName = 'node-sms-ru'
 export default {
   input: `src/${libraryName}.ts`,
   output: [
-    { file: pkg.main, name: camelCase(libraryName), format: 'umd', sourcemap: true },
+    // Don't support UMD untill we figure out a better way to handle the build of two library entrypoints: node-sms-ru.ts and nestjs.ts
+    // { file: pkg.main, name: camelCase(libraryName), format: 'umd', sourcemap: true },
     { file: pkg.module, format: 'es', sourcemap: true },
   ],
   // Indicate here external modules you don't wanna include in your bundle (i.e.: 'lodash')
