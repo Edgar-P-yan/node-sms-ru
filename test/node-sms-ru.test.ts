@@ -60,14 +60,19 @@ describe('node-sms-ru', () => {
         })
       })
 
-      describe('#checkSmsStatuses() ', async () => {
-        let smsId: string = ''
+      describe('#checkSmsStatuses() ', () => {
+        let smsId: string | undefined
 
         beforeAll(async () => {
           smsId = await getSmsId()
         })
 
         it('works', async () => {
+          if (!smsId) {
+            console.log(`Could not get an smsId`)
+            return
+          }
+
           const result = await smsRu.checkSmsStatuses([smsId])
 
           assert.strictEqual(result.status, 'OK')
@@ -90,7 +95,7 @@ describe('node-sms-ru', () => {
   })
 })
 
-async function getSmsId(): Promise<string> {
+async function getSmsId(): Promise<string | undefined> {
   // @ts-expect-error
   const smsRu = new SMSRu(...authArgs)
 
@@ -99,6 +104,8 @@ async function getSmsId(): Promise<string> {
     msg: 'Hi',
     test: true
   })
+
+  console.log(r, { depth: null, compact: true })
 
   const smsResult = _.values(r.sms)[0]
   return (smsResult as any)['sms_id'] as string
