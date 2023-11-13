@@ -25,9 +25,9 @@ yarn add node-sms-ru
 Сначала инициируем класс:
 
 ```js
-const { SMSRu } = require('node-sms-ru')
+const { SMSRu } = require('node-sms-ru');
 
-const smsRu = new SMSRu('ваш api_id')
+const smsRu = new SMSRu('ваш api_id');
 ```
 
 Отправка СМС:
@@ -37,13 +37,13 @@ const sendResult = await smsRu.sendSms({
   to: '+7 000 000 00 00',
   msg: 'Hi'
   // ... описание всех опций можно найти в документации
-})
+});
 ```
 
 Проверка статуса сообщений:
 
 ```js
-const statusResult = await smsRu.checkSmsStatuses(['id сообщения'])
+const statusResult = await smsRu.checkSmsStatuses(['id сообщения']);
 ```
 
 Полное описание API находится здесь: [edgar-p-yan.github.io/node-sms-ru](https://edgar-p-yan.github.io/node-sms-ru/)
@@ -70,11 +70,11 @@ import { SMSRuModule } from 'node-sms-ru/nestjs'
   imports: [
     SMSRuModule.forRootAsync({
       useFactory: (config: ConfigService) => ({
-        api_id: config.get('SMS_RU_API_ID')
+        api_id: config.get('SMS_RU_API_ID'),
       }),
-      inject: [ConfigService]
-    })
-  ]
+      inject: [ConfigService],
+    }),
+  ],
 })
 export class AppModule {}
 ```
@@ -82,14 +82,14 @@ export class AppModule {}
 А после этого используем его в сервисах
 
 ```ts
-import { SMSRu } from 'node-sms-ru'
+import { SMSRu } from 'node-sms-ru';
 
 @Injectable()
 export class AppService {
   constructor(private readonly smsRu: SMSRu) {}
 
   async sendSMSNotification(to: string, msg: string): Promise<void> {
-    await this.smsRu.sendSms({ to, msg })
+    await this.smsRu.sendSms({ to, msg });
   }
 }
 ```
