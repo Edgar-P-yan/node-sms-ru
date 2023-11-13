@@ -2,7 +2,7 @@
 
 ![sms.ru logo](https://raw.githubusercontent.com/Edgar-P-yan/node-sms-ru/master/assets/logo.png)
 
-node-sms-ru это библиотека для работы с API сервиса СМС рассылок [sms.ru](https://sms.ru)
+node-sms-ru это библиотека для работы с API сервиса СМС рассылок [sms.ru](https://sms.ru).
 
 ## Installation
 
@@ -22,7 +22,7 @@ yarn add node-sms-ru
 
 ## Usage
 
-Сначала инициируем класс
+Сначала инициируем класс:
 
 ```js
 const { SMSRu } = require('node-sms-ru')
@@ -30,7 +30,7 @@ const { SMSRu } = require('node-sms-ru')
 const smsRu = new SMSRu('ваш api_id')
 ```
 
-Отправка СМС
+Отправка СМС:
 
 ```js
 const sendResult = await smsRu.sendSms({
@@ -40,7 +40,7 @@ const sendResult = await smsRu.sendSms({
 })
 ```
 
-Проверка статуса сообщений
+Проверка статуса сообщений:
 
 ```js
 const statusResult = await smsRu.checkSmsStatuses(['id сообщения'])
