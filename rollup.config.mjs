@@ -1,10 +1,10 @@
 // @ts-check
 
-import { readFile } from 'node:fs/promises'
+import { readFile } from 'node:fs/promises';
 
-import typescript2 from 'rollup-plugin-typescript2'
+import typescript2 from 'rollup-plugin-typescript2';
 
-const packageJSON = JSON.parse(await readFile('./package.json', 'utf-8'))
+const packageJSON = JSON.parse(await readFile('./package.json', 'utf-8'));
 
 /**
  * Comment with library information to be appended in the generated bundles.
@@ -14,7 +14,7 @@ const banner = `/*!
  * (c) ${packageJSON.author.name}
  * Released under the ${packageJSON.license} License.
  */
-`
+`;
 
 /**
  * Creates an output options object for Rollup.js.
@@ -27,8 +27,8 @@ function createOutputOptions(options) {
     name: 'node-sms-ru',
     exports: 'named',
     sourcemap: true,
-    ...options
-  }
+    ...options,
+  };
 }
 
 /**
@@ -39,20 +39,16 @@ const options = {
   output: [
     createOutputOptions({
       file: './dist/index.mjs',
-      format: 'esm'
+      format: 'esm',
     }),
-    createOutputOptions({
-      file: './dist/index.esm.js',
-      format: 'esm'
-    })
   ],
   plugins: [
     typescript2({
       clean: true,
       useTsconfigDeclarationDir: true,
-      tsconfig: './tsconfig.bundle.json'
-    })
-  ]
-}
+      tsconfig: './tsconfig.bundle.json',
+    }),
+  ],
+};
 
-export default options
+export default options;
