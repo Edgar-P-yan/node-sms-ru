@@ -10,9 +10,46 @@
     "рассылки",
     "sdk"
   ],
-  "main": "dist/lib/node-sms-ru.js",
-  "module": "dist/node-sms-ru.es5.js",
-  "typings": "dist/types/node-sms-ru.d.ts",
+  "main": "./dist/lib/node-sms-ru.js",
+  "module": "./dist/index.esm.js",
+  "typings": "./dist/types/node-sms-ru.d.ts",
+  "typings": "./dist/types/node-sms-ru.d.ts",
+  "exports": {
+    ".": [
+      {
+        "import": {
+          "types": "./dist/types/node-sms-ru.d.ts",
+          "default": "./dist/index.mjs"
+        },
+        "require": {
+          "types": "./dist/types/node-sms-ru.d.ts",
+          "default": "./dist/lib/node-sms-ru.js"
+        },
+        "default": {
+          "types": "./dist/types/node-sms-ru.d.ts",
+          "default": "./dist/lib/node-sms-ru.js"
+        }
+      },
+      "./dist/lib/node-sms-ru.js"
+    ],
+    "./nestjs.js": [
+      {
+        "import": {
+          "types": "./dist/types/nestjs.d.ts",
+          "default": "./nestjs.js"
+        },
+        "require": {
+          "types": "./dist/types/nestjs.d.ts",
+          "default": "./nestjs.js"
+        },
+        "default": {
+          "types": "./dist/types/nestjs.d.ts",
+          "default": "./nestjs.js"
+        }
+      },
+      "default": "./nestjs.js"
+    ]
+  },
   "files": [
     "dist",
     "nestjs.js",
