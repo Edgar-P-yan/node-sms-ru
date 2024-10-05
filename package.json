@@ -47,7 +47,7 @@
           "default": "./nestjs.js"
         }
       },
-      "default": "./nestjs.js"
+      "./nestjs.js"
     ]
   },
   "files": [
