@@ -1,6 +1,6 @@
 {
   "name": "node-sms-ru",
-  "version": "0.3.0-alpha.3",
+  "version": "0.3.0",
   "description": "Библиотека для работы с API сервиса СМС рассылок https://sms.ru",
   "keywords": [
     "sms",
