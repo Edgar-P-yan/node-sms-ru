@@ -1,34 +1,34 @@
-import axios from 'axios'
-import { SMSRuParams } from './interfaces/SMSRuParams.interface'
-import { SMSRuSendSMSResponse } from './interfaces/SMSRuSendSMSResponse.interface'
-import { SMSRuSendSMSOptions } from './interfaces/SMSRuSendSMSOptions.interface'
-import { SMSRuSMSStatuses } from './interfaces/SMSRuSMSStatuses.interface'
-import { SMSRuError } from './errors/SMSRuError.error'
-import { SMSRuGetCostOptions } from './interfaces/SMSRuGetCostOptions.interface'
-import { SMSRuGetCostResponse } from './interfaces/SMSRuGetCostResponse.interface'
-import { SMSRuGetBalanceResponse } from './interfaces/SMSRuGetBalanceResponse.interface'
-import { SMSRuGetLimitResponse } from './interfaces/SMSRuGetLimitResponse.interface'
-import { SMSRuGetFreeResponse } from './interfaces/SMSRuGetFreeResponse.interface'
-import { SMSRuGetSendersResponse } from './interfaces/SMSRuGetSendersResponse.interface'
-import { SMSRuCodeCallOptions } from './interfaces/SMSRuCodeCallOptions.interface'
-import { SMSRuCodeCallResponse } from './interfaces/SMSRuCodeCallResponse.interface'
-export { SMSRuErrorResponse } from './interfaces/SMSRuErrorResponse.interface'
+import axios from 'axios';
+import { SMSRuParams } from './interfaces/SMSRuParams.interface';
+import { SMSRuSendSMSResponse } from './interfaces/SMSRuSendSMSResponse.interface';
+import { SMSRuSendSMSOptions } from './interfaces/SMSRuSendSMSOptions.interface';
+import { SMSRuSMSStatuses } from './interfaces/SMSRuSMSStatuses.interface';
+import { SMSRuError } from './errors/SMSRuError.error';
+import { SMSRuGetCostOptions } from './interfaces/SMSRuGetCostOptions.interface';
+import { SMSRuGetCostResponse } from './interfaces/SMSRuGetCostResponse.interface';
+import { SMSRuGetBalanceResponse } from './interfaces/SMSRuGetBalanceResponse.interface';
+import { SMSRuGetLimitResponse } from './interfaces/SMSRuGetLimitResponse.interface';
+import { SMSRuGetFreeResponse } from './interfaces/SMSRuGetFreeResponse.interface';
+import { SMSRuGetSendersResponse } from './interfaces/SMSRuGetSendersResponse.interface';
+import { SMSRuCodeCallOptions } from './interfaces/SMSRuCodeCallOptions.interface';
+import { SMSRuCodeCallResponse } from './interfaces/SMSRuCodeCallResponse.interface';
+export { SMSRuErrorResponse } from './interfaces/SMSRuErrorResponse.interface';
 
 export class SMSRu {
-  private _params: SMSRuParams
+  private _params: SMSRuParams;
 
-  constructor(apiId: string)
+  constructor(apiId: string);
   // tslint:disable-next-line unified-signatures
-  constructor(login: string, password: string)
+  constructor(login: string, password: string);
 
   constructor(apiIdOrLogin: string, password?: string) {
-    this._params = { baseUrl: 'https://sms.ru/' }
+    this._params = { baseUrl: 'https://sms.ru/' };
 
-    if (arguments.length === 2) {
-      this._params.login = apiIdOrLogin
-      this._params.password = password
+    if (password !== undefined && password !== null) {
+      this._params.login = apiIdOrLogin;
+      this._params.password = password;
     } else {
-      this._params.api_id = apiIdOrLogin
+      this._params.api_id = apiIdOrLogin;
     }
   }
 
@@ -54,12 +54,12 @@ export class SMSRu {
         : options.time,
       daytime: options.daytime ? 1 : options.daytime === false ? 0 : undefined,
       transit: options.transit ? 1 : options.transit === false ? 0 : undefined,
-      test: options.test ? 1 : options.test === false ? 0 : undefined
-    }
+      test: options.test ? 1 : options.test === false ? 0 : undefined,
+    };
 
-    const sendResponse = await this._makeApiRequest<SMSRuSendSMSResponse>('sms/send', params)
+    const sendResponse = await this._makeApiRequest<SMSRuSendSMSResponse>('sms/send', params);
 
-    return sendResponse
+    return sendResponse;
   }
 
   /**
@@ -68,8 +68,8 @@ export class SMSRu {
    * @see https://sms.ru/api/code_call
    */
   async codeCall(options: SMSRuCodeCallOptions): Promise<SMSRuCodeCallResponse> {
-    const params = { phone: options.to }
-    return this._makeApiRequest<SMSRuCodeCallResponse>('code/call', params)
+    const params = { phone: options.to };
+    return this._makeApiRequest<SMSRuCodeCallResponse>('code/call', params);
   }
 
   /**
@@ -83,10 +83,10 @@ export class SMSRu {
    */
   async checkSmsStatuses(smsIds: string | string[]): Promise<SMSRuSMSStatuses> {
     const smsStatuses = await this._makeApiRequest<SMSRuSMSStatuses>('sms/status', {
-      sms_id: Array.isArray(smsIds) ? smsIds.join(',') : smsIds
-    })
+      sms_id: Array.isArray(smsIds) ? smsIds.join(',') : smsIds,
+    });
 
-    return smsStatuses
+    return smsStatuses;
   }
 
   /**
@@ -102,10 +102,10 @@ export class SMSRu {
     const params = {
       ...options,
       to: Array.isArray(options.to) ? options.to.join(',') : options.to,
-      transit: options.transit ? 1 : options.transit === false ? 0 : undefined
-    }
+      transit: options.transit ? 1 : options.transit === false ? 0 : undefined,
+    };
 
-    return this._makeApiRequest<SMSRuGetCostResponse>('sms/cost', params)
+    return this._makeApiRequest<SMSRuGetCostResponse>('sms/cost', params);
   }
 
   /**
@@ -115,8 +115,8 @@ export class SMSRu {
    * используйте этот метод.
    */
   async getBalance(): Promise<number> {
-    const getBalanceResponse = await this._makeApiRequest<SMSRuGetBalanceResponse>('my/balance')
-    return getBalanceResponse.balance
+    const getBalanceResponse = await this._makeApiRequest<SMSRuGetBalanceResponse>('my/balance');
+    return getBalanceResponse.balance;
   }
 
   /**
@@ -127,7 +127,7 @@ export class SMSRu {
    * сегодня отправили сообщения, используйте этот метод.
    */
   async getLimit(): Promise<SMSRuGetLimitResponse> {
-    return this._makeApiRequest<SMSRuGetLimitResponse>('my/limit')
+    return this._makeApiRequest<SMSRuGetLimitResponse>('my/limit');
   }
 
   /**
@@ -138,7 +138,7 @@ export class SMSRu {
    * сообщений на свой номер за день, используйте этот метод.
    */
   async getFree(): Promise<SMSRuGetFreeResponse> {
-    return this._makeApiRequest<SMSRuGetFreeResponse>('my/free')
+    return this._makeApiRequest<SMSRuGetFreeResponse>('my/free');
   }
 
   /**
@@ -149,8 +149,8 @@ export class SMSRu {
    * то необходимо использовать этот метод
    */
   async getSenders(): Promise<string[]> {
-    const getSendersResponse = await this._makeApiRequest<SMSRuGetSendersResponse>('my/senders')
-    return getSendersResponse.senders
+    const getSendersResponse = await this._makeApiRequest<SMSRuGetSendersResponse>('my/senders');
+    return getSendersResponse.senders;
   }
 
   /**
@@ -163,7 +163,7 @@ export class SMSRu {
    * иначе выбросит исключение.
    */
   async checkAuth(): Promise<void> {
-    await this._makeApiRequest('auth/check')
+    await this._makeApiRequest('auth/check');
   }
 
   private async _makeApiRequest<T = any>(path: string, params?: Record<string, any>): Promise<T> {
@@ -172,22 +172,22 @@ export class SMSRu {
       params: {
         ...(params || {}),
         ...this._authParams,
-        json: 1
+        json: 1,
       },
-      baseURL: this._params.baseUrl
-    })
+      baseURL: this._params.baseUrl,
+    });
 
     if ((response.data as any)?.status !== 'OK') {
-      throw new SMSRuError((response.data as any)?.status_text || 'Unknown error', response.data)
+      throw new SMSRuError((response.data as any)?.status_text || 'Unknown error', response.data);
     }
 
-    return response.data
+    return response.data;
   }
 
   private get _authParams() {
     return this._params.api_id
       ? { api_id: this._params.api_id }
-      : { login: this._params.login, password: this._params.password }
+      : { login: this._params.login, password: this._params.password };
   }
 }
 
@@ -199,5 +199,5 @@ export {
   SMSRuGetCostResponse,
   SMSRuGetLimitResponse,
   SMSRuGetFreeResponse,
-  SMSRuError
-}
+  SMSRuError,
+};

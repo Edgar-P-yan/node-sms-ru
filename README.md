@@ -2,6 +2,10 @@
 
 ![sms.ru logo](https://raw.githubusercontent.com/Edgar-P-yan/node-sms-ru/master/assets/logo.png)
 
+[![License](https://badgen.net/github/license/Edgar-P-Yan/node-sms-ru)](./LICENSE)
+[![NPM Badge](https://badge.fury.io/js/node-sms-ru.svg)](https://badge.fury.io/js/node-sms-ru)
+[![install size](https://packagephobia.com/badge?p=node-sms-ru)](https://packagephobia.com/result?p=node-sms-ru)
+
 node-sms-ru это библиотека для работы с API сервиса СМС рассылок [sms.ru](https://sms.ru).
 
 ## Installation
@@ -11,7 +15,7 @@ node-sms-ru это библиотека для работы с API сервис�
 С помощью npm:
 
 ```bash
-npm install --save node-sms-ru
+npm install node-sms-ru
 ```
 
 Или же с помощью yarn:
@@ -28,6 +32,8 @@ yarn add node-sms-ru
 const { SMSRu } = require('node-sms-ru');
 
 const smsRu = new SMSRu('ваш api_id');
+// или
+const smsRu = new SMSRu('ваш логин', 'ваш пароль');
 ```
 
 Отправка СМС:

@@ -13,12 +13,12 @@ export interface SMSRuGetCostOptions {
    * неверно, то вместо идентификатора сообщения в выдаче вы
    * получите трехзначный код ошибки.
    */
-  to?: string | string[] | { [phoneNumber: string]: string }
+  to?: string | string[] | { [phoneNumber: string]: string };
 
   /**
    * Текст сообщения
    */
-  msg?: string
+  msg?: string;
 
   /**
    * Если вы хотите в одном запросе отправить разные сообщения
@@ -36,17 +36,17 @@ export interface SMSRuGetCostOptions {
    * то вместо идентификатора сообщения в выдаче вы получите
    * трехзначный код ошибки.
    */
-  multi?: { [phoneNumber: string]: string }
+  multi?: { [phoneNumber: string]: string };
 
   /**
    * Имя отправителя (должно быть согласовано с
    * администрацией). Если не заполнено, в качестве
    * отправителя будет указан ваш отправитель по умолчанию.
    */
-  from?: string
+  from?: string;
 
   /**
    * Переводит все русские символы в латинские
    */
-  transit?: boolean
+  transit?: boolean;
 }
