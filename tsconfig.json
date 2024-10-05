@@ -14,11 +14,8 @@
     "outDir": "dist/lib",
     "esModuleInterop": true,
     "resolveJsonModule": true,
-    "typeRoots": [
-      "node_modules/@types"
-    ]
+    "skipLibCheck": true,
+    "typeRoots": ["node_modules/@types"]
   },
-  "include": [
-    "src"
-  ]
+  "include": ["src"]
 }

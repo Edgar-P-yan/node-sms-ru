@@ -1,19 +1,19 @@
-import { Module, DynamicModule, Global } from '@nestjs/common'
-import { SMSRu } from './node-sms-ru'
-import { ModuleMetadata } from '@nestjs/common/interfaces'
+import { Module, DynamicModule, Global } from '@nestjs/common';
+import { SMSRu } from './node-sms-ru';
+import { ModuleMetadata } from '@nestjs/common/interfaces';
 
-const SMS_RU_NEST_MODULE_OPTIONS_PROVIDER = 'SMS_RU_NEST_MODULE_OPTIONS_PROVIDER'
+const SMS_RU_NEST_MODULE_OPTIONS_PROVIDER = 'SMS_RU_NEST_MODULE_OPTIONS_PROVIDER';
 
 export interface SMSRuNestModuleOptions {
-  api_id?: string
-  login?: string
-  password?: string
+  api_id?: string;
+  login?: string;
+  password?: string;
 }
 
 export interface SMSRuNestModuleAsyncOptions extends Pick<ModuleMetadata, 'imports'> {
-  name?: string
-  useFactory: (...args: any[]) => Promise<SMSRuNestModuleOptions> | SMSRuNestModuleOptions
-  inject?: any[]
+  name?: string;
+  useFactory: (...args: any[]) => Promise<SMSRuNestModuleOptions> | SMSRuNestModuleOptions;
+  inject?: any[];
 }
 
 @Global()
@@ -26,11 +26,11 @@ export class SMSRuModule {
       providers: [
         {
           provide: SMSRu,
-          useValue: this._createSMSRu(options)
-        }
+          useValue: this._createSMSRu(options),
+        },
       ],
-      exports: [SMSRu]
-    }
+      exports: [SMSRu],
+    };
   }
 
   static forRootAsync(options: SMSRuNestModuleAsyncOptions): DynamicModule {
@@ -42,21 +42,23 @@ export class SMSRuModule {
         {
           provide: SMS_RU_NEST_MODULE_OPTIONS_PROVIDER,
           useFactory: options.useFactory,
-          inject: options.inject
+          inject: options.inject,
         },
         {
           provide: SMSRu,
           useFactory: async (options: SMSRuNestModuleOptions): Promise<SMSRu> => {
-            return this._createSMSRu(options)
+            return this._createSMSRu(options);
           },
-          inject: [SMS_RU_NEST_MODULE_OPTIONS_PROVIDER]
-        }
+          inject: [SMS_RU_NEST_MODULE_OPTIONS_PROVIDER],
+        },
       ],
-      exports: [SMSRu]
-    }
+      exports: [SMSRu],
+    };
   }
 
   private static _createSMSRu(options: SMSRuNestModuleOptions): SMSRu {
-    return options.api_id ? new SMSRu(options.api_id) : new SMSRu(options.login!, options.password!)
+    return options.api_id
+      ? new SMSRu(options.api_id)
+      : new SMSRu(options.login!, options.password!);
   }
 }

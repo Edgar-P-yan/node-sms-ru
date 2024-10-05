@@ -1,19 +1,19 @@
-import { SMSRuErrorResponse } from '../interfaces/SMSRuErrorResponse.interface'
+import { SMSRuErrorResponse } from '../interfaces/SMSRuErrorResponse.interface';
 
 export class SMSRuError extends Error {
-  public errorResponse?: SMSRuErrorResponse
-  public response?: any
+  public errorResponse?: SMSRuErrorResponse;
+  public response?: any;
 
   constructor(message: string, response?: any) {
-    super(message)
-    Object.setPrototypeOf(this, SMSRuError.prototype)
+    super(message);
+    Object.setPrototypeOf(this, SMSRuError.prototype);
 
-    this.response = response
-    this.name = this.constructor.name
+    this.response = response;
+    this.name = this.constructor.name;
 
-    this.response = response
+    this.response = response;
     if (this._isErrorResponse(response)) {
-      this.errorResponse = response
+      this.errorResponse = response;
     }
   }
 
@@ -27,6 +27,6 @@ export class SMSRuError extends Error {
         // check status_text
         (response.status_text ? typeof response.status_text === 'string' : true)) ||
       false
-    )
+    );
   }
 }

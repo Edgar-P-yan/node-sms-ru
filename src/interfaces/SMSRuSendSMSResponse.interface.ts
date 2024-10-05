@@ -3,36 +3,36 @@ export interface SMSRuSendSMSResponse {
    * Запрос выполнен успешно
    * (нет ошибок в авторизации, проблем с отправителем, итд...)
    */
-  status: string
+  status: string;
   /**
    * Успешный код выполнения
    */
-  status_code: number
+  status_code: number;
   sms: {
     [phoneNumber: string]:
       | {
-          status: 'OK'
+          status: 'OK';
           /**
            * Успешный код выполнения, сообщение принято на отправку
            */
-          status_code: number
-          sms_id: string
-          cost?: string
+          status_code: number;
+          sms_id: string;
+          cost?: string;
         }
       | {
-          status: 'ERROR'
+          status: 'ERROR';
           /**
            * Код ошибки
            */
-          status_code: number
+          status_code: number;
           /**
            * Описание ошибки
            */
-          status_text: string
-        }
-  }
+          status_text: string;
+        };
+  };
   /**
    * Ваш баланс после отправки
    */
-  balance: number
+  balance: number;
 }
